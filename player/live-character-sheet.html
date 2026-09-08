@@ -1,0 +1,348 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mont Olympe — Divine Heir V5 Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#E7E4DB;--paper2:#DED9CD;--panel:#F0EDE6;--ink:#191A1E;--soft:#4C4E57;
+    --ichor:#B0842A;--ox:#6E2A2A;--blood:#7C1E1E;--rule:#9B968A;
+    --disp:'Cinzel',Georgia,serif;--mono:'Space Mono','Courier New',monospace;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--paper2)}
+  body{margin:0;font-family:var(--mono);color:var(--ink);
+    background:radial-gradient(120% 80% at 50% -10%,rgba(124,30,30,.10),transparent 60%),var(--paper);
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .bar{max-width:1000px;margin:18px auto 0;padding:0 8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .bar select,.btn{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;border:1.5px solid var(--ink);
+    background:var(--paper);color:var(--ink);padding:8px 11px;border-radius:3px;cursor:pointer}
+  .btn{background:var(--ink);color:var(--paper);text-transform:uppercase}
+  .btn:hover{background:var(--ox);border-color:var(--ox)}
+  .btn.g{background:transparent;color:var(--ink)}
+  .spacer{flex:1}.saved{font-size:10px;color:var(--ox);letter-spacing:.08em;opacity:0;transition:opacity .3s}
+  .saved.show{opacity:1}.lbl{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+
+  .sheet{max-width:1000px;margin:14px auto 60px;background:var(--paper);border:1.5px solid var(--ink);
+    box-shadow:0 2px 0 var(--ink),0 20px 50px -30px rgba(0,0,0,.6);padding:24px 26px 30px}
+  .head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:12px}
+  .eyebrow{font-size:9.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--soft);margin:0 0 4px}
+  .title{font-family:var(--disp);font-weight:700;font-size:26px;line-height:1;margin:0}
+  .title .r{color:var(--ox)}
+  .seal{width:60px;height:60px;border-radius:50%;border:2px solid var(--ox);display:flex;align-items:center;
+    justify-content:center;flex-direction:column;color:var(--ox);opacity:.85;flex:none;
+    box-shadow:inset 0 0 0 4px var(--paper),inset 0 0 0 5px rgba(110,42,42,.5)}
+  .seal b{font-family:var(--disp);font-size:17px;line-height:1}.seal small{font-size:6px;letter-spacing:.2em;margin-top:2px}
+
+  .row{display:grid;gap:16px;margin-top:16px}
+  .r3{grid-template-columns:1fr 1fr 1fr}.r2{grid-template-columns:1fr 1fr}
+  @media(max-width:820px){.r3,.r2{grid-template-columns:1fr}}
+  .box{border:1.5px solid var(--ink);border-radius:4px;background:var(--panel);margin-bottom:16px}
+  .box h3{font-family:var(--disp);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    margin:0;padding:7px 11px;border-bottom:1.5px solid var(--ink);background:var(--paper);
+    display:flex;justify-content:space-between;align-items:center}
+  .box h3 .hint{font-family:var(--mono);font-weight:400;font-size:8px;color:var(--soft);text-transform:none;letter-spacing:.02em}
+  .box .in{padding:10px 11px}
+
+  label.fl{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);display:block;margin-bottom:2px}
+  input.l,textarea.l{width:100%;border:none;border-bottom:1.4px solid var(--rule);background:transparent;
+    font-family:var(--mono);font-size:12.5px;color:var(--ink);padding:2px;resize:none;line-height:1.5}
+  input.l:focus,textarea.l:focus{outline:none;border-bottom-color:var(--ox);background:linear-gradient(transparent 80%,rgba(110,42,42,.10))}
+  textarea.l{border:1.4px solid var(--rule);border-radius:3px;padding:6px;min-height:44px}
+  textarea.l:focus{border-color:var(--ox);background:rgba(110,42,42,.05)}
+  .pair{margin-bottom:9px}.two{display:flex;gap:10px}.two>div{flex:1}
+
+  /* trait row: label + dots */
+  .trait{display:flex;justify-content:space-between;align-items:center;padding:3px 0;gap:8px}
+  .trait .k{font-size:11px;letter-spacing:.02em;text-transform:capitalize;white-space:nowrap}
+  .trait .k small{color:var(--soft);text-transform:none;letter-spacing:0}
+  .dots{display:flex;gap:3px;flex:none}
+  .dot{width:13px;height:13px;border:1.4px solid var(--ink);border-radius:50%;cursor:pointer;background:var(--paper)}
+  .dot.f{background:var(--ink)}
+  .dots.gold .dot.f{background:var(--ichor);border-color:var(--ichor)}
+  .cat{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ox);margin:2px 0 6px;border-bottom:1px dashed var(--rule);padding-bottom:3px}
+
+  /* box trackers */
+  .track{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+  .tbox{width:16px;height:16px;border:1.5px solid var(--ink);border-radius:2px;cursor:pointer;background:var(--paper);
+    position:relative}
+  .tbox.s::after{content:"/";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-weight:700;color:var(--ox);font-size:14px}
+  .tbox.a::after{content:"✕";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-weight:700;color:var(--blood);font-size:12px}
+  .hbox{width:15px;height:15px;border:1.5px solid var(--ink);cursor:pointer;background:var(--paper);border-radius:50%}
+  .hbox.f{background:var(--ink)}.hbox.stain{background:var(--paper);border-color:var(--blood);box-shadow:inset 0 0 0 2px var(--blood)}
+  .hungerdots .dot{width:15px;height:15px}
+  .hungerdots .dot.f{background:var(--blood);border-color:var(--blood)}
+  .derived{font-size:9px;color:var(--soft);letter-spacing:.06em;margin-top:3px}
+
+  .disc{border:1.3px solid var(--rule);border-radius:4px;padding:8px;margin-bottom:8px;background:var(--paper)}
+  .disc .dtop{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .disc input.dn{border:none;border-bottom:1.4px solid var(--rule);background:transparent;font-family:var(--disp);
+    font-weight:600;font-size:13px;color:var(--ink);flex:1;padding:2px}
+  .disc input.dn:focus{outline:none;border-bottom-color:var(--ox)}
+  .disc textarea.l{min-height:36px;margin-top:6px;font-size:11px}
+
+  .footer{margin-top:10px;border-top:2px solid var(--ink);padding-top:10px;font-size:9px;color:var(--soft);line-height:1.7}
+  .footer b{color:var(--ink)}
+  @media print{html,body{background:#fff}.bar{display:none}.sheet{box-shadow:none;margin:0;max-width:100%}.box{break-inside:avoid}}
+</style>
+
+<div class="bar">
+  <div class="spacer"></div>
+  <span class="saved" id="saved">saved ✓</span>
+  <button class="btn g" onclick="doExport()">Save to file</button>
+  <button class="btn g" onclick="document.getElementById('imp').click()">Load file</button>
+  <input type="file" id="imp" accept="application/json" style="display:none">
+  <button class="btn g" onclick="wipe()">Clear</button>
+  <button class="btn" onclick="window.print()">Print / PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="head">
+    <div>
+      <p class="eyebrow">Divine Heir Registry · V5 Rules · Las Vegas</p>
+      <h1 class="title">MONT <span class="r">OLYMPE</span></h1>
+    </div>
+    <div class="seal"><b>MO</b><small>V5</small></div>
+  </div>
+
+  <!-- IDENTITY -->
+  <div class="box"><h3>Identity</h3><div class="in">
+    <div class="row r3" style="margin-top:0">
+      <div>
+        <div class="pair"><label class="fl">Name</label><input class="l" data-f="name"></div>
+        <div class="pair"><label class="fl">Concept</label><input class="l" data-f="concept"></div>
+        <div class="pair"><label class="fl">Chronicle</label><input class="l" data-f="chronicle" value="Mont Olympe"></div>
+      </div>
+      <div>
+        <div class="pair"><label class="fl">Divine lineage / domains</label><input class="l" data-f="clan"></div>
+        <div class="pair"><label class="fl">Divine parent</label><input class="l" data-f="sire"></div>
+        <div class="pair"><label class="fl">Belief practice</label><input class="l" data-f="predator"></div>
+      </div>
+      <div>
+        <div class="pair"><label class="fl">Ambition</label><input class="l" data-f="ambition"></div>
+        <div class="pair"><label class="fl">Desire</label><input class="l" data-f="desire"></div>
+        <div class="pair"><label class="fl">Origin / legacy notes</label><input class="l" data-f="gen"></div>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="box"><h3>Divinity in Vegas <span class="hint">what you rule, how you operate, what makes you legendary</span></h3><div class="in">
+    <div class="row r2" style="margin-top:0">
+      <div>
+        <div class="pair"><label class="fl">Chosen domains</label><input class="l" data-f="domains" placeholder="Storms, stardom, secrets, death…"></div>
+        <div class="pair"><label class="fl">Belief style</label><input class="l" data-f="beliefStyle" placeholder="Fame, fear, loyalty, wonder, stories…"></div>
+        <div class="pair"><label class="fl">Vegas operation</label><textarea class="l" data-f="vegasOperation" placeholder="Your business, following, organization, territory, or public role"></textarea></div>
+      </div>
+      <div>
+        <div class="pair"><label class="fl">Signature miracle</label><textarea class="l" data-f="signatureMiracle" placeholder="The defining wonder only you perform"></textarea></div>
+        <div class="pair"><label class="fl">Divine asset</label><textarea class="l" data-f="divineAsset" placeholder="Relic, companion, headquarters, vehicle, company, cult, or elite retinue"></textarea></div>
+      </div>
+    </div>
+  </div></div>
+
+  <!-- ATTRIBUTES -->
+  <div class="box"><h3>Attributes</h3><div class="in"><div class="row r3" style="margin-top:0">
+    <div><div class="cat">Physical</div><div id="attr-phys"></div></div>
+    <div><div class="cat">Social</div><div id="attr-soc"></div></div>
+    <div><div class="cat">Mental</div><div id="attr-ment"></div></div>
+  </div></div></div>
+
+  <!-- SKILLS -->
+  <div class="box"><h3>Skills <span class="hint">click dots to rate</span></h3><div class="in"><div class="row r3" style="margin-top:0">
+    <div><div class="cat">Physical</div><div id="sk-phys"></div></div>
+    <div><div class="cat">Social</div><div id="sk-soc"></div></div>
+    <div><div class="cat">Mental</div><div id="sk-ment"></div></div>
+  </div>
+  <div class="pair" style="margin-top:8px"><label class="fl">Specialties</label><textarea class="l" data-f="specialties" placeholder="Skill (specialty), e.g. Performance (Guitar), Occult (Ghosts)…"></textarea></div>
+  </div></div>
+
+  <!-- TRACKERS + DISCIPLINES -->
+  <div class="row r2">
+    <div>
+      <div class="box"><h3>Vitals</h3><div class="in">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span class="lbl">Health</span><span class="derived" id="hp-max"></span></div>
+        <div class="track" id="health"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+          <span class="lbl">Willpower</span><span class="derived" id="wp-max"></span></div>
+        <div class="track" id="willpower"></div>
+        <div class="derived" style="margin-top:6px">click a box: empty → superficial (/) → aggravated (✕)</div>
+      </div></div>
+
+      <div class="box"><h3>Divine Appetite &amp; Potency</h3><div class="in">
+        <div class="trait"><span class="k">Divine appetite <small>(need expressed through power)</small></span>
+          <div class="dots hungerdots" id="hunger"></div></div>
+        <div class="trait"><span class="k">Divine Potency</span><div class="dots gold" id="bp"></div></div>
+        <div class="pair" style="margin-top:6px"><label class="fl">Belief resonance / notes</label><input class="l" data-f="resonance"></div>
+      </div></div>
+
+      <div class="box"><h3>Humanity <span class="hint">filled = current · red = stain</span></h3><div class="in">
+        <div class="track" id="humanity"></div>
+        <div class="derived" style="margin-top:6px">click: empty → filled → stain</div>
+      </div></div>
+    </div>
+
+    <div>
+      <div class="box"><h3>Divine Disciplines</h3><div class="in" id="discs"></div></div>
+    </div>
+  </div>
+
+  <!-- FACTS / ADVANTAGES -->
+  <div class="row r2">
+    <div class="box"><h3>Advantages &amp; Flaws <span class="hint">backgrounds, assets, burdens</span></h3><div class="in">
+      <div class="pair"><label class="fl">Advantages / Backgrounds</label><textarea class="l" data-f="advantages" style="min-height:70px" placeholder="Resources ••, Contacts •••, Retainers ••, Fame ••, loresheets…"></textarea></div>
+      <div class="pair"><label class="fl">Lineage burden &amp; compulsion</label><textarea class="l" data-f="bane"></textarea></div>
+    </div></div>
+    <div class="box"><h3>Convictions &amp; Touchstones</h3><div class="in">
+      <div class="pair"><label class="fl">Convictions</label><textarea class="l" data-f="convictions"></textarea></div>
+      <div class="pair"><label class="fl">Touchstones (your tether to the living)</label><textarea class="l" data-f="touchstones"></textarea></div>
+      <div class="pair"><label class="fl">Notes</label><textarea class="l" data-f="notes"></textarea></div>
+    </div></div>
+  </div>
+
+  <div class="footer">
+    <b>Roll:</b> Attribute + Skill in d10s; each 6+ is a success; Difficulty = successes needed. &nbsp;•&nbsp;
+    <b>Powers:</b> a Power Check (1 die) activates a Discipline; 1–5 raises Divine Appetite. &nbsp;•&nbsp;
+    <b>Appetite dice</b> replace pool dice as need rises; a 1 on them risks Bestial Failure, paired 10s = Critical.
+  </div>
+</div>
+
+<script>
+const ATTR={phys:['strength','dexterity','stamina'],soc:['charisma','manipulation','composure'],ment:['intelligence','wits','resolve']};
+const SKILL={
+ phys:['athletics','brawl','craft','drive','firearms','larceny','melee','stealth','survival'],
+ soc:['animal ken','etiquette','insight','intimidation','leadership','performance','persuasion','streetwise','subterfuge'],
+ ment:['academics','awareness','finance','investigation','medicine','occult','politics','science','technology']};
+const KEY='montolympe-v5-sheet-v1';
+
+function blank(){
+  const s={schemaVersion:2,build:{},f:{chronicle:'Mont Olympe'},attr:{},skill:{},disc:[],hunger:1,bp:1,
+    health:[],willpower:[],humanity:Array(10).fill(0)};
+  Object.values(ATTR).flat().forEach(a=>s.attr[a]=1);
+  Object.values(SKILL).flat().forEach(k=>s.skill[k]=0);
+  for(let i=0;i<3;i++) s.humanity[i]=1; // default humanity 7 -> fill 7; set below
+  s.humanity=Array(10).fill(0).map((_,i)=>i<7?1:0);
+  s.disc=Array(6).fill(0).map(()=>({name:'',rating:0,powers:''}));
+  return s;
+}
+let state=blank();
+
+// ---- helpers
+function dots(container,val,max,onset,gold){
+  container.innerHTML='';container.className='dots'+(gold?' gold':'');
+  for(let i=1;i<=max;i++){const d=document.createElement('span');d.className='dot'+(i<=val?' f':'');
+    d.onclick=()=>onset(i===val?i-1:i);container.appendChild(d);}
+}
+function traitRow(parent,key,val,onset,min){
+  const row=document.createElement('div');row.className='trait';
+  const k=document.createElement('span');k.className='k';k.textContent=key;
+  const dc=document.createElement('div');
+  row.appendChild(k);row.appendChild(dc);parent.appendChild(row);
+  dots(dc,val,5,v=>{onset(Math.max(min||0,v));},false);
+}
+function healthMax(){return (state.attr.stamina||1)+3;}
+function wpMax(){return (state.attr.composure||1)+(state.attr.resolve||1);}
+function fitTrack(arr,n){arr.length=n; for(let i=0;i<n;i++) if(arr[i]==null)arr[i]=0; return arr;}
+
+function render(){
+  // identity fields
+  document.querySelectorAll('[data-f]').forEach(el=>{
+    const value=state.f[el.dataset.f];
+    el.value=value==null?'':(Array.isArray(value)?value.join(', '):(typeof value==='object'?JSON.stringify(value):value));
+  });
+  // attributes
+  for(const [grp,ids] of Object.entries({phys:'attr-phys',soc:'attr-soc',ment:'attr-ment'})){
+    const box=document.getElementById(ids);box.innerHTML='';
+    ATTR[grp].forEach(a=>traitRow(box,a,state.attr[a],v=>{state.attr[a]=v;save();renderTracks();},1));
+  }
+  // skills
+  for(const [grp,ids] of Object.entries({phys:'sk-phys',soc:'sk-soc',ment:'sk-ment'})){
+    const box=document.getElementById(ids);box.innerHTML='';
+    SKILL[grp].forEach(k=>traitRow(box,k,state.skill[k],v=>{state.skill[k]=v;save();},0));
+  }
+  // hunger, bp
+  dots(document.getElementById('hunger'),state.hunger,5,v=>{state.hunger=(v===state.hunger?v-1:v);save();},false);
+  document.getElementById('hunger').classList.add('hungerdots');
+  dots(document.getElementById('bp'),state.bp,5,v=>{state.bp=(v===state.bp?v-1:v);save();},true);
+  // humanity
+  const hb=document.getElementById('humanity');hb.innerHTML='';
+  state.humanity.forEach((st,i)=>{const b=document.createElement('span');
+    b.className='hbox'+(st===1?' f':st===2?' stain':'');
+    b.onclick=()=>{state.humanity[i]=(st+1)%3;save();render();};hb.appendChild(b);});
+  renderTracks();
+  renderDiscs();
+}
+function renderTracks(){
+  fitTrack(state.health,healthMax());fitTrack(state.willpower,wpMax());
+  document.getElementById('hp-max').textContent='max '+healthMax();
+  document.getElementById('wp-max').textContent='max '+wpMax();
+  for(const [key,id] of [['health','health'],['willpower','willpower']]){
+    const c=document.getElementById(id);c.innerHTML='';
+    state[key].forEach((st,i)=>{const b=document.createElement('span');
+      b.className='tbox'+(st===1?' s':st===2?' a':'');
+      b.onclick=()=>{state[key][i]=(st+1)%3;save();renderTracks();};c.appendChild(b);});
+  }
+}
+function renderDiscs(){
+  const wrap=document.getElementById('discs');wrap.innerHTML='';
+  state.disc.forEach((d,i)=>{
+    const el=document.createElement('div');el.className='disc';
+    const top=document.createElement('div');top.className='dtop';
+    const nm=document.createElement('input');nm.className='dn';nm.placeholder='Divine Discipline';nm.value=d.name||'';
+    nm.oninput=()=>{d.name=nm.value;save();};
+    const dc=document.createElement('div');
+    top.appendChild(nm);top.appendChild(dc);el.appendChild(top);
+    dots(dc,d.rating,5,v=>{d.rating=(v===d.rating?v-1:v);save();},true);
+    const ta=document.createElement('textarea');ta.className='l';ta.placeholder='One power, miracle, ritual, or ceremony per line…';
+    ta.value=Array.isArray(d.powerList)?d.powerList.map(powerLabel).join('\n'):(d.powers||'');
+    ta.oninput=()=>{
+      d.powers=ta.value;
+      if(Array.isArray(d.powerList))d.powerList=ta.value.split(/\n+/).map(v=>v.trim()).filter(Boolean);
+      save();
+    };el.appendChild(ta);
+    wrap.appendChild(el);
+  });
+}
+
+function powerLabel(power){
+  if(typeof power==='string')return power;
+  if(!power||typeof power!=='object')return String(power||'');
+  const name=power.name||power.title||power.power||'';
+  const level=power.level!=null?' (Level '+power.level+')':'';
+  return name+level;
+}
+
+// text field binding
+document.addEventListener('input',e=>{if(e.target.dataset&&e.target.dataset.f!=null){state.f[e.target.dataset.f]=e.target.value;save();}});
+
+// ---- persistence
+let t;function save(){try{localStorage.setItem(KEY,JSON.stringify(state));
+  const s=document.getElementById('saved');s.classList.add('show');clearTimeout(t);t=setTimeout(()=>s.classList.remove('show'),1200);
+}catch(e){}}
+function restore(){try{const r=localStorage.getItem(KEY);if(r){state=JSON.parse(r);normalize();}}catch(e){}}
+function normalize(){ // guard shape
+  if(state.schemaVersion==null)state.schemaVersion=1;
+  if(state.build==null)state.build={};
+  state.attr=state.attr||{};state.skill=state.skill||{};
+  Object.values(ATTR).flat().forEach(a=>state.attr[a]=state.attr[a]||1);
+  Object.values(SKILL).flat().forEach(k=>state.skill[k]=state.skill[k]||0);
+  state.f=state.f||{};state.disc=(state.disc&&state.disc.length)?state.disc:blank().disc;
+  state.disc=state.disc.map(d=>d&&typeof d==='object'?d:{name:'',rating:0,powers:''});
+  while(state.disc.length<6)state.disc.push({name:'',rating:0,powers:''});
+  state.humanity=state.humanity&&state.humanity.length===10?state.humanity:blank().humanity;
+  state.health=state.health||[];state.willpower=state.willpower||[];
+  if(state.hunger==null)state.hunger=1;if(state.bp==null)state.bp=1;
+}
+function doExport(){const name=(state.f.name||'divine_heir').replace(/[^\w\-]+/g,'_');
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+  const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='montolympe_vegas_'+name+'.json';a.click();URL.revokeObjectURL(u);}
+document.getElementById('imp').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=()=>{try{state=JSON.parse(r.result);normalize();render();save();}catch(err){alert('Could not read that file.');}};
+  r.readAsText(f);e.target.value='';});
+function wipe(){if(!confirm('Clear the whole sheet?'))return;state=blank();render();save();}
+
+restore();render();
+</script>
