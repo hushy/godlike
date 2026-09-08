@@ -1,3 +1,6 @@
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mont Olympe — Divine Heir V5 Sheet</title>
@@ -83,13 +86,22 @@
     font-weight:600;font-size:13px;color:var(--ink);flex:1;padding:2px}
   .disc input.dn:focus{outline:none;border-bottom-color:var(--ox)}
   .disc textarea.l{min-height:36px;margin-top:6px;font-size:11px}
+  .dguide{margin-top:6px;padding:6px 8px;border-left:3px solid var(--ox);background:var(--warm);font-size:9px;line-height:1.45;color:var(--soft)}
+  .prules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:7px}
+  .prule{border:1px solid var(--rule);border-left:3px solid var(--ichor);border-radius:3px;padding:7px;background:var(--panel);font-size:8.5px;line-height:1.42}
+  .prule h4{font-family:var(--disp);font-size:10px;margin:0 0 4px}.prule h4 span{font-family:var(--mono);font-size:7px;color:var(--soft);font-weight:400}
+  .prule p{margin:3px 0}.prule b{font-size:7px;text-transform:uppercase;color:var(--soft)}.prule a{color:var(--ox)}
 
   .footer{margin-top:10px;border-top:2px solid var(--ink);padding-top:10px;font-size:9px;color:var(--soft);line-height:1.7}
   .footer b{color:var(--ink)}
-  @media print{html,body{background:#fff}.bar{display:none}.sheet{box-shadow:none;margin:0;max-width:100%}.box{break-inside:avoid}}
+  @media(max-width:700px){.prules{grid-template-columns:1fr}}
+  @media print{html,body{background:#fff}.bar{display:none}.sheet{box-shadow:none;margin:0;max-width:100%}.box,.prule{break-inside:avoid}}
 </style>
+</head>
+<body>
 
 <div class="bar">
+  <a class="btn g" href="index.html" style="text-decoration:none">Campaign home</a>
   <div class="spacer"></div>
   <span class="saved" id="saved">saved ✓</span>
   <button class="btn g" onclick="doExport()">Save to file</button>
@@ -179,9 +191,10 @@
         <div class="pair" style="margin-top:6px"><label class="fl">Belief resonance / notes</label><input class="l" data-f="resonance"></div>
       </div></div>
 
-      <div class="box"><h3>Humanity <span class="hint">filled = current · red = stain</span></h3><div class="in">
+      <div class="box"><h3>Mortal Connection <span class="hint">filled = current · red = Hubris</span></h3><div class="in">
         <div class="track" id="humanity"></div>
-        <div class="derived" style="margin-top:6px">click: empty → filled → stain</div>
+        <div class="derived" style="margin-top:6px">click: empty → filled → Hubris</div>
+        <div class="derived" style="margin-top:6px">Reflection: if you have Hubris at session end, roll one die per empty, unmarked box (minimum one). Any success clears it. No successes lowers Mortal Connection by one, then clears it.</div>
       </div></div>
     </div>
 
@@ -196,17 +209,17 @@
       <div class="pair"><label class="fl">Advantages / Backgrounds</label><textarea class="l" data-f="advantages" style="min-height:70px" placeholder="Resources ••, Contacts •••, Retainers ••, Fame ••, loresheets…"></textarea></div>
       <div class="pair"><label class="fl">Lineage burden &amp; compulsion</label><textarea class="l" data-f="bane"></textarea></div>
     </div></div>
-    <div class="box"><h3>Convictions &amp; Touchstones</h3><div class="in">
-      <div class="pair"><label class="fl">Convictions</label><textarea class="l" data-f="convictions"></textarea></div>
-      <div class="pair"><label class="fl">Touchstones (your tether to the living)</label><textarea class="l" data-f="touchstones"></textarea></div>
+    <div class="box"><h3>Principles &amp; Mortal Anchors</h3><div class="in">
+      <div class="pair"><label class="fl">Principles</label><textarea class="l" data-f="convictions"></textarea></div>
+      <div class="pair"><label class="fl">Mortal Anchors (people who keep mortals real to you)</label><textarea class="l" data-f="touchstones"></textarea></div>
       <div class="pair"><label class="fl">Notes</label><textarea class="l" data-f="notes"></textarea></div>
     </div></div>
   </div>
 
   <div class="footer">
-    <b>Roll:</b> Attribute + Skill in d10s; each 6+ is a success; Difficulty = successes needed. &nbsp;•&nbsp;
-    <b>Powers:</b> a Power Check (1 die) activates a Discipline; 1–5 raises Divine Appetite. &nbsp;•&nbsp;
-    <b>Appetite dice</b> replace pool dice as need rises; a 1 on them risks Bestial Failure, paired 10s = Critical.
+    <b>Test:</b> add one Attribute and one Skill; roll that many d10s. Each 6+ is one success. &nbsp;•&nbsp;
+    <b>Rouse Check:</b> roll one die when a power asks; 1–5 raises Divine Appetite, 6–10 causes no change. &nbsp;•&nbsp;
+    <b>Appetite:</b> replace normal dice with red dice; never add dice. Two 10s together give four successes.
   </div>
 </div>
 
@@ -216,6 +229,9 @@ const SKILL={
  phys:['athletics','brawl','craft','drive','firearms','larceny','melee','stealth','survival'],
  soc:['animal ken','etiquette','insight','intimidation','leadership','performance','persuasion','streetwise','subterfuge'],
  ment:['academics','awareness','finance','investigation','medicine','occult','politics','science','technology']};
+const DISC_GUIDE={
+ Auspex:'Investigation and foresight. Usual roll: Wits or Resolve + Auspex.',Fortitude:'Physical and mental defense. Often passive; resisted effects use Stamina, Resolve, or Composure.',Potence:'Force and close combat. Usual roll: Strength + Brawl, Melee, or Athletics.',Celerity:'Speed and precise movement. Usual roll: Dexterity + Athletics, Drive, or Firearms.',Presence:'Emotion, fame, and fear. Usual roll: Charisma or Manipulation + Presence.',Dominate:'Commands and altered memory. Usual roll: Manipulation + Dominate.',Obfuscate:'Disguise and disappearance. Often automatic until challenged; then Wits + Obfuscate.',Oblivion:'Death and shadow. Usual roll: Resolve or Wits + Oblivion.','Blood Sorcery':'Rituals and curses. Usual roll: Intelligence or Resolve + Blood Sorcery.',Animalism:'Animals and instinct. Usual roll: Charisma or Manipulation + Animalism.',Protean:'Transformation. Most forms activate automatically; attacks use a normal physical test.'
+};
 const KEY='montolympe-v5-sheet-v1';
 
 function blank(){
@@ -296,6 +312,7 @@ function renderDiscs(){
     const dc=document.createElement('div');
     top.appendChild(nm);top.appendChild(dc);el.appendChild(top);
     dots(dc,d.rating,5,v=>{d.rating=(v===d.rating?v-1:v);save();},true);
+    if(DISC_GUIDE[d.name]){const guide=document.createElement('div');guide.className='dguide';guide.textContent=DISC_GUIDE[d.name];el.appendChild(guide);}
     const ta=document.createElement('textarea');ta.className='l';ta.placeholder='One power, miracle, ritual, or ceremony per line…';
     ta.value=Array.isArray(d.powerList)?d.powerList.map(powerLabel).join('\n'):(d.powers||'');
     ta.oninput=()=>{
@@ -303,6 +320,11 @@ function renderDiscs(){
       if(Array.isArray(d.powerList))d.powerList=ta.value.split(/\n+/).map(v=>v.trim()).filter(Boolean);
       save();
     };el.appendChild(ta);
+    if(Array.isArray(d.powerList)&&d.powerList.some(p=>p&&typeof p==='object'&&p.rules)){
+      const rules=document.createElement('div');rules.className='prules';
+      rules.innerHTML=d.powerList.filter(p=>p&&typeof p==='object'&&p.rules).map(powerRuleCard).join('');
+      el.appendChild(rules);
+    }
     wrap.appendChild(el);
   });
 }
@@ -312,8 +334,32 @@ function powerLabel(power){
   if(!power||typeof power!=='object')return String(power||'');
   const name=power.name||power.title||power.power||'';
   const level=power.level!=null?' (Level '+power.level+')':'';
-  return name+level;
+  const summary=power.summary?' — '+campaignTerms(power.summary):'';
+  return name+level+summary;
 }
+
+function powerRuleCard(power){
+  const r=power.rules||{},clean=v=>campaignTerms(String(v||'N/A').replace(/Errata/g,'').replace(/\s+/g,' ').trim()||'N/A');
+  const no=v=>/^(N\/A|No|None)$/i.test(clean(v));
+  const roll=no(r.pool)?'No roll':clean(r.pool),opp=no(r.opposed)?'No opposing roll':clean(r.opposed);
+  const req=[!no(r.prerequisite)?'Power: '+clean(r.prerequisite):'',!no(r.amalgam)?'Discipline: '+clean(r.amalgam):''].filter(Boolean).join(' · ')||'None';
+  const alias=r.canonical&&r.canonical!==power.name?' · V5: '+html(r.canonical):'';
+  return '<article class="prule"><h4>'+html(power.name)+' <span>Level '+Number(power.level||0)+alias+'</span></h4><p>'+html(clean(r.effect))+'</p><p><b>Cost</b> '+html(clean(r.cost))+' · <b>Duration</b> '+html(clean(r.duration))+'</p><p><b>Roll</b> '+html(roll)+' · <b>Opposed by</b> '+html(opp)+'</p><p><b>Requirements</b> '+html(req)+'</p><p><b>Important</b> '+html(clean(r.notes))+'</p><p><b>Source</b> <a href="'+html(r.url||'#')+'" target="_blank" rel="noreferrer">'+html(clean(r.source))+'</a></p></article>';
+}
+function campaignTerms(v){return String(v==null?'':v)
+  .replace(/Stain removal or protection from Stains/gi,'Remove or prevent Hubris')
+  .replace(/Pre-emptively gain stains to prevent\/reduce further stain gains\./gi,'Gain Hubris now to prevent or reduce further Hubris.')
+  .replace(/A vampire actually gains three stains doing this, but one can be mitigated by a Conviction\./gi,'The user gains three Hubris; one may be prevented by a Principle.')
+  .replace(/should the user stain, so does the passenger/gi,'if the user gains Hubris, so does the passenger')
+  .replace(/can net stains for the victim/gi,'can give the victim Hubris')
+  .replace(/Those outside of the Sabbat take stains upon use/gi,'Those outside of the Sabbat gain Hubris when they use it')
+  .replace(/\bunstained\b/gi,'unmarked')
+  .replace(/\bHumanity\b/g,'Mortal Connection')
+  .replace(/\bStains\b/g,'Hubris').replace(/\bstains\b/g,'Hubris').replace(/\bStain\b/g,'Hubris')
+  .replace(/\bConvictions\b/g,'Principles').replace(/\bConviction\b/g,'Principle')
+  .replace(/\bTouchstones\b/g,'Mortal Anchors').replace(/\bTouchstone\b/g,'Mortal Anchor')
+  .replace(/their touchstone/g,'their Mortal Anchor')}
+function html(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
 // text field binding
 document.addEventListener('input',e=>{if(e.target.dataset&&e.target.dataset.f!=null){state.f[e.target.dataset.f]=e.target.value;save();}});
@@ -346,3 +392,5 @@ function wipe(){if(!confirm('Clear the whole sheet?'))return;state=blank();rende
 
 restore();render();
 </script>
+</body>
+</html>

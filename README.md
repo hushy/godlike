@@ -1,14 +1,13 @@
-# Godlike player portal
+# Mont Olympe — player portal
 
-Player-facing resources for **Mont Olympe**, hosted with GitHub Pages.
+Player-facing resources for the *Mont Olympe: Gods in Las Vegas* tabletop campaign.
 
-## Published content
+The site includes:
 
-- Divine Heir Builder
-- Live Character Sheet
-- Setting Primer
-- Session 0 Recap
+- the shared setting primer;
+- the Session 0 recap;
+- the interactive Divine Heir Builder;
+- the complete player power catalogue;
+- the live character sheet.
 
-GM-only resources are intentionally excluded from this repository.
-
-The site is deployed from `main` by `.github/workflows/pages.yml`.
+The site is deployed through GitHub Pages. All interactive tools run entirely in the browser and do not send character data to a server.

@@ -3,307 +3,101 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#171512">
-  <meta name="description" content="Player resources for Mont Olympe, a game of divine heirs in Las Vegas, 1999.">
-  <title>Godlike — Mont Olympe Player Portal</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --ink: #171512;
-      --paper: #f3eddf;
-      --card: #fffaf0;
-      --soft: #71695e;
-      --rule: #c9bfae;
-      --gold: #a57520;
-      --red: #772d2d;
-      --serif: Georgia, "Times New Roman", serif;
-      --sans: Inter, ui-sans-serif, system-ui, sans-serif;
-      --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
-    }
-
-    * { box-sizing: border-box; }
-
-    html { min-height: 100%; background: #e8dece; }
-
-    body {
-      min-height: 100vh;
-      margin: 0;
-      color: var(--ink);
-      font-family: var(--sans);
-      background:
-        radial-gradient(circle at 15% 0, rgba(165, 117, 32, .19), transparent 34rem),
-        radial-gradient(circle at 100% 40%, rgba(119, 45, 45, .10), transparent 30rem),
-        linear-gradient(#e8dece, #f5f0e7 34rem);
-    }
-
-    a { color: inherit; }
-
-    .wrap {
-      width: min(1080px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 34px 0 56px;
-    }
-
-    .masthead {
-      display: flex;
-      align-items: flex-end;
-      gap: 24px;
-      padding-bottom: 18px;
-      border-bottom: 2px solid var(--ink);
-    }
-
-    .brand {
-      margin: 0;
-      font: 700 clamp(34px, 7vw, 76px) / .86 var(--serif);
-      letter-spacing: -.045em;
-    }
-
-    .brand span { color: var(--red); }
-
-    .kicker,
-    .eyebrow {
-      margin: 0 0 8px;
-      color: var(--red);
-      font: 700 10px / 1.4 var(--mono);
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
-    .stamp {
-      margin-left: auto;
-      color: var(--soft);
-      font: 10px / 1.5 var(--mono);
-      letter-spacing: .08em;
-      text-align: right;
-      text-transform: uppercase;
-    }
-
-    .intro {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(250px, .7fr);
-      gap: 28px;
-      padding: 42px 0 28px;
-    }
-
-    h2 {
-      max-width: 760px;
-      margin: 0;
-      font: 700 clamp(32px, 5vw, 58px) / 1.02 var(--serif);
-      letter-spacing: -.025em;
-    }
-
-    .intro p {
-      margin: 7px 0 0;
-      color: #49433a;
-      font: 17px / 1.65 var(--serif);
-    }
-
-    .notice {
-      align-self: end;
-      padding: 16px;
-      border: 1px solid var(--rule);
-      border-left: 4px solid var(--gold);
-      border-radius: 7px;
-      background: rgba(255, 250, 240, .68);
-      color: var(--soft);
-      font-size: 12px;
-      line-height: 1.55;
-    }
-
-    .tools {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 10px;
-    }
-
-    .card {
-      display: flex;
-      min-height: 260px;
-      flex-direction: column;
-      padding: clamp(22px, 4vw, 34px);
-      border: 1px solid var(--rule);
-      border-radius: 9px;
-      background: var(--card);
-      box-shadow: 0 16px 38px rgba(34, 26, 16, .12);
-    }
-
-    .card.primary { border-top: 5px solid var(--red); }
-    .card.secondary { border-top: 5px solid var(--gold); }
-
-    .number {
-      margin-bottom: 30px;
-      color: var(--rule);
-      font: 700 12px var(--mono);
-      letter-spacing: .1em;
-    }
-
-    h3 {
-      margin: 0;
-      font: 700 clamp(25px, 4vw, 38px) / 1.05 var(--serif);
-    }
-
-    .card p {
-      max-width: 44rem;
-      margin: 10px 0 25px;
-      color: var(--soft);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: auto;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 11px 16px;
-      border: 1.5px solid var(--ink);
-      border-radius: 5px;
-      background: var(--ink);
-      color: var(--paper);
-      font: 700 10px var(--mono);
-      letter-spacing: .07em;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: transform .15s ease, background .15s ease;
-    }
-
-    .button:hover,
-    .button:focus-visible {
-      background: var(--red);
-      border-color: var(--red);
-      transform: translateY(-2px);
-      outline: none;
-    }
-
-    .button.ghost { background: transparent; color: var(--ink); }
-    .button.ghost:hover,
-    .button.ghost:focus-visible { background: var(--gold); color: #fffaf0; }
-
-    .library {
-      margin-top: 18px;
-      padding: 23px 0 5px;
-      border-top: 1px solid var(--rule);
-    }
-
-    .downloads {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .download {
-      display: flex;
-      gap: 13px;
-      align-items: center;
-      padding: 15px;
-      border: 1px solid var(--rule);
-      border-radius: 6px;
-      background: rgba(255, 250, 240, .7);
-      text-decoration: none;
-    }
-
-    .download:hover,
-    .download:focus-visible { border-color: var(--gold); outline: none; }
-
-    .filetype {
-      flex: none;
-      padding: 5px 7px;
-      border-radius: 3px;
-      background: var(--red);
-      color: var(--paper);
-      font: 700 8px var(--mono);
-      letter-spacing: .08em;
-    }
-
-    .download b { display: block; font: 700 16px var(--serif); }
-    .download small { display: block; margin-top: 3px; color: var(--soft); }
-
-    footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      margin-top: 36px;
-      padding-top: 14px;
-      border-top: 2px solid var(--ink);
-      color: var(--soft);
-      font: 9px / 1.6 var(--mono);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 720px) {
-      .wrap { width: min(100% - 20px, 1080px); padding-top: 18px; }
-      .masthead { align-items: flex-start; flex-direction: column; }
-      .stamp { margin-left: 0; text-align: left; }
-      .intro, .tools, .downloads { grid-template-columns: 1fr; }
-      .intro { padding-top: 30px; }
-      footer { flex-direction: column; }
-    }
-  </style>
+  <meta name="description" content="Player resources for Mont Olympe, an urban-fantasy campaign set in late-1990s Las Vegas.">
+  <title>Mont Olympe — Gods in Las Vegas</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="wrap">
-    <header class="masthead">
+  <main class="shell">
+    <header class="site-header">
       <div>
-        <p class="kicker">Player portal · Las Vegas, 1999</p>
-        <h1 class="brand">GOD<span>LIKE</span></h1>
+        <a class="wordmark" href="index.html">MONT <span>OLYMPE</span></a>
+        <p class="site-tag">Gods in Las Vegas · Player resources</p>
       </div>
-      <p class="stamp">Mont Olympe<br>Divine Heir Registry</p>
+      <nav class="site-nav" aria-label="Player resources">
+        <a href="setting.html">Setting</a>
+        <a href="session-0.html">Session 0</a>
+        <a href="builder.html">Builder</a>
+        <a href="power-cards.html">Powers</a>
+        <a href="character-sheet.html">Live sheet</a>
+      </nav>
     </header>
 
-    <section class="intro" aria-labelledby="welcome">
-      <h2 id="welcome">Welcome to the city where belief has teeth.</h2>
+    <section class="hero">
       <div>
-        <p>Create your divine heir, save the result to your device, then bring that file into the live sheet for play.</p>
-        <div class="notice">Your character data stays in your browser unless you choose to download or copy it.</div>
+        <p class="eyebrow">Late 1990s · Las Vegas</p>
+        <h1>Build your <span>Vegas legend.</span></h1>
+        <p class="hero-copy">The old gods are fading. Their heirs have careers, enemies, followers and empires. Learn the world, catch up on Session 0, then create the powerful divine heir you want to play.</p>
+      </div>
+      <aside class="brief">
+        <strong>Your first objective</strong>
+        <p>Plan and stage the most spectacular rally-concert Las Vegas has ever seen. Decide what your heir brings—and what they demand in return.</p>
+      </aside>
+    </section>
+
+    <section aria-labelledby="start-heading">
+      <div class="section-head">
+        <h2 id="start-heading">Start here</h2>
+        <p>Read the first two resources before opening the builder.</p>
+      </div>
+      <div class="how-to" aria-label="Recommended order">
+        <div><b>1 · Learn the world</b><span>Read what every divine heir knows about Vegas.</span></div>
+        <div><b>2 · Catch up</b><span>Review the characters and events from Session 0.</span></div>
+        <div><b>3 · Build your heir</b><span>Make every choice and learn the rules as you go.</span></div>
+        <div><b>4 · Bring the sheet</b><span>Export your build and use the live sheet at the table.</span></div>
+      </div>
+
+      <div class="resource-grid">
+        <article class="resource">
+          <span class="number">01 · Shared setting</span>
+          <h3>Player Primer</h3>
+          <p>Divine society, belief, modern worship, Las Vegas, the six heirs and the job in front of you.</p>
+          <div class="actions">
+            <a class="button" href="setting.html">Read online</a>
+            <a class="button secondary" href="downloads/Mont-Olympe-Player-Primer.docx" download>Download DOCX</a>
+          </div>
+        </article>
+
+        <article class="resource">
+          <span class="number">02 · Shared canon</span>
+          <h3>Session 0 Recap</h3>
+          <p>Meet the full table and revisit the bargain in Hell, Jack's performance and the rally-concert plan.</p>
+          <div class="actions">
+            <a class="button" href="session-0.html">Read online</a>
+            <a class="button secondary" href="downloads/Mont-Olympe-Session-0-Recap.docx" download>Download DOCX</a>
+          </div>
+        </article>
+
+        <article class="resource primary">
+          <span class="number">03 · Main tool</span>
+          <h3>Divine Heir Builder</h3>
+          <p>Create a complete high-powered character while learning how attributes, skills, dice pools, powers and risks work in play. Your progress saves in this browser.</p>
+          <div class="actions">
+            <a class="button" href="builder.html">Create your heir</a>
+          </div>
+        </article>
+
+        <article class="resource">
+          <span class="number">04 · Rules reference</span>
+          <h3>Power Catalogue</h3>
+          <p>Browse all available Discipline powers by family and level, with requirements and exact table-facing summaries.</p>
+          <div class="actions">
+            <a class="button" href="power-cards.html">Browse powers</a>
+          </div>
+        </article>
+
+        <article class="resource">
+          <span class="number">05 · At the table</span>
+          <h3>Live Character Sheet</h3>
+          <p>Import the JSON exported by the builder, track current values during play and print a clean copy when needed.</p>
+          <div class="actions">
+            <a class="button" href="character-sheet.html">Open live sheet</a>
+          </div>
+        </article>
       </div>
     </section>
 
-    <section class="tools" aria-label="Player tools">
-      <article class="card primary">
-        <span class="number">01 / CREATE</span>
-        <p class="eyebrow">Start here</p>
-        <h3>Divine Heir Builder</h3>
-        <p>Build a complete heir step by step: identity, divine lineage, domains, traits, powers, mortal ties, and everything you need to enter play.</p>
-        <div class="actions">
-          <a class="button" href="player/divine-heir-builder.html">Build a character</a>
-        </div>
-      </article>
-
-      <article class="card secondary">
-        <span class="number">02 / PLAY</span>
-        <p class="eyebrow">At the table</p>
-        <h3>Live Character Sheet</h3>
-        <p>Load your saved character, update trackers during play, keep local progress, and print or save a clean copy whenever you need one.</p>
-        <div class="actions">
-          <a class="button" href="player/live-character-sheet.html">Open live sheet</a>
-        </div>
-      </article>
-    </section>
-
-    <section class="library" aria-labelledby="library-title">
-      <p class="eyebrow" id="library-title">Player library</p>
-      <div class="downloads">
-        <a class="download" href="player/setting-primer.docx" download>
-          <span class="filetype">DOCX</span>
-          <span><b>Setting Primer</b><small>The world, the city, and what your heir knows.</small></span>
-        </a>
-        <a class="download" href="player/session-0-recap.docx" download>
-          <span class="filetype">DOCX</span>
-          <span><b>Session 0 Recap</b><small>A quick reference before the story begins.</small></span>
-        </a>
-      </div>
-    </section>
-
-    <footer>
-      <span>Mont Olympe · Godlike</span>
-      <span>Player-facing resources only</span>
-    </footer>
+    <footer class="site-footer">Mont Olympe · Player portal · Las Vegas, 1999</footer>
   </main>
 </body>
 </html>
